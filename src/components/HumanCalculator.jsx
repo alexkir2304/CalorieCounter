@@ -68,27 +68,27 @@ const HumanCalculator = () => {
                             <div className={`lifestyle-options__1 ${parameters.lifestyle === '1.2' ? 'active' : ''}`}
                                  onClick={() => setParameters({...parameters, lifestyle: "1.2"})}>
                                 <span></span>
-                                <span>1</span>
+                                <span>Сидячий и малоподвижный</span>
                             </div>
                             <div className={`lifestyle-options__2 ${parameters.lifestyle === '1.375' ? 'active' : ''}`}
                                  onClick={() => setParameters({...parameters, lifestyle: "1.375"})}>
                                 <span></span>
-                                <span>2</span>
+                                <span>Легкая активность (физические нагрузки 1-3 раза в неделю)</span>
                             </div>
                             <div className={`lifestyle-options__3 ${parameters.lifestyle === '1.55' ? 'active' : ''}`}
                                  onClick={() => setParameters({...parameters, lifestyle: "1.55"})}>
                                 <span></span>
-                                <span>3</span>
+                                <span>Средняя активность (физические нагрузки 3-5 раз в неделю)</span>
                             </div>
                             <div className={`lifestyle-options__4 ${parameters.lifestyle === '1.725' ? 'active' : ''}`}
                                  onClick={() => setParameters({...parameters, lifestyle: "1.725"})}>
                                 <span></span>
-                                <span>4</span>
+                                <span>Высокая активность (физические нагрузки 6-7 раз в неделю)</span>
                             </div>
                             <div className={`lifestyle-options__5 ${parameters.lifestyle === '1.9' ? 'active' : ''}`}
                                  onClick={() => setParameters({...parameters, lifestyle: "1.9"})}>
                                 <span></span>
-                                <span>5</span>
+                                <span>Очень высокая активность (постоянно высокая физическая нагрузка)</span>
                             </div>
                         </div>
                     </div>
@@ -98,7 +98,7 @@ const HumanCalculator = () => {
             <div className="humanCalculator-result">
                 <div>
                     <div>Для сброса веса</div>
-                    <div>{parametersResult} ккал</div>
+                    <div>{(parametersResult * 0.85).toFixed(0)} ккал</div>
                 </div>
                 <div>
                     <div>Для поддержки веса</div>
@@ -106,7 +106,7 @@ const HumanCalculator = () => {
                 </div>
                 <div>
                     <div>Для набора мышечной массы</div>
-                    <div>{parametersResult} ккал</div>
+                    <div>{(parametersResult * 1.15).toFixed(0)} ккал</div>
                 </div>
                 <button onClick={()=> {
                     parameters.gender !== ''&&
