@@ -1,0 +1,102 @@
+@import "tailwindcss";
+
+html {
+    background-color: #333;
+    @apply text-white
+}
+
+@utility flex-center {
+    @apply flex justify-center items-center;
+}
+
+@utility flex-center-col {
+    @apply flex flex-col justify-center items-center;
+}
+
+.nav {
+    @apply flex-center;
+}
+
+.main {
+    @apply flex-center-col;
+
+    .humanCalculator {
+        @apply flex-center-col;
+
+        .description {
+
+        }
+
+        .parameters {
+            .inputs {
+                .gender {
+                    .gender-title {
+
+                    }
+                    .gender-options {
+                        .gender-options__male, .gender-options__female {
+                            span {
+                                &:first-child {
+                                    @apply relative;
+                                    &:before {
+                                        @apply flex absolute;
+                                        left: -30px;
+                                        content: "";
+                                        border: 2px solid red;
+                                        border-radius: 100%;
+                                        width: 24px;
+                                        height: 24px;
+                                    }
+                                }
+                            }
+                            &.active {
+                                span {
+                                    &:first-child {
+                                        &:before {
+                                            border-color: blue;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .lifestyle {
+                    .lifestyle-title {
+
+                    }
+
+                    .lifestyle-options {
+                        .lifestyle-options__1, .lifestyle-options__2, .lifestyle-options__3, .lifestyle-options__4, .lifestyle-options__5 {
+                            span {
+                                &:first-child {
+                                    @apply relative;
+                                    &:before {
+                                        @apply flex absolute;
+                                        left: -30px;
+                                        content: "";
+                                        border: 2px solid red;
+                                        border-radius: 100%;
+                                        width: 24px;
+                                        height: 24px;
+                                    }
+                                }
+                            }
+                            &.active {
+                                span {
+                                    &:first-child {
+                                        &:before {
+                                            border-color: blue;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
