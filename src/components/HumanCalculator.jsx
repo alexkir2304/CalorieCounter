@@ -109,13 +109,12 @@ const HumanCalculator = () => {
                     <div>{(parametersResult * 1.15).toFixed(0)} ккал</div>
                 </div>
                 <button onClick={()=> {
-                    parameters.gender !== ''&&
-                    parameters.age !== ''&&
-                    parameters.weight !== '' &&
-                    parameters.height !== ''&&
-                    parameters.age !== ''&& parameters.gender !== ''  //подумать, как нормально это отфильтровать
-                    && parameters.gender === 'male' ? setParametersResult((10 * parameters.weight + 6.25 * parameters.height - 5 * parameters.age + 5) * parameters.lifestyle)
-                        :  setParametersResult((10 * parameters.weight + 6.25 * parameters.height - 5 * parameters.age - 161) * parameters.lifestyle)
+                    const entries = Object.values(parameters);
+                    const filteredEntries = entries.filter((entry) => entry==="");
+
+                    filteredEntries.length === 0    //all the inputs have been used
+                    ? (parameters.gender === 'male' ? setParametersResult((10 * parameters.weight + 6.25 * parameters.height - 5 * parameters.age + 5) * parameters.lifestyle)
+                        :  setParametersResult((10 * parameters.weight + 6.25 * parameters.height - 5 * parameters.age - 161) * parameters.lifestyle)) : alert('Пожалуйста, заполните все поля');
                 }
                 }>Рассчитать</button>
             </div>
