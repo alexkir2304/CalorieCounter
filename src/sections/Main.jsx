@@ -8,7 +8,7 @@ const Main = () => {
         <main className="main">
             <Graphics/>
             <FoodCalculator/>
-            <HumanCalculator/>
+            {/*<HumanCalculator/>*/}
         </main>
     );
 };
