@@ -1,15 +1,26 @@
-import React from 'react';
+import React, {useEffect, useMemo} from 'react';
 import {productList} from '../constants/index.js';
 
 const FoodCalculator = () => {
 
-    const [selectedSort, setSelectedSort] = React.useState("name");
     const [baseProductList, setBaseProductList] = React.useState(productList);
+    const [selectedSort, setSelectedSort] = React.useState("name");
     const [sortedProducts, setSortedProducts] = React.useState(baseProductList);
+    const [searchText, setSearchText] = React.useState('');
+    const [searchedAndSortedProducts, setSearchedAndSortedProducts] = React.useState(baseProductList)
 
-    const sortProducts = (filter) => {
+    const sortProducts =  (filter) => {
         setSelectedSort(filter)
-        setSortedProducts([...baseProductList].sort((a,b) => typeof a[filter] === "string" ? a[filter].localeCompare(b[filter]) : a[filter]-(b[filter])))
+        setSearchedAndSortedProducts([...searchedAndSortedProducts].sort((a,b) => typeof a[filter] === "string" ? a[filter].localeCompare(b[filter]) : a[filter]-(b[filter])))
+    }
+
+    const findAndSortProducts = (e) => {
+
+        setSearchText(e.target.value)
+        setSearchedAndSortedProducts(baseProductList.filter((item) => item.name.toLowerCase().includes(searchText.toLowerCase())))
+        // sortProducts(selectedSort)
+        console.log(e.target.value)
+
     }
 
     return (
@@ -20,7 +31,7 @@ const FoodCalculator = () => {
             <div className="foodCalculator-search">
                 <div>
                     <div className="foodCalculator-searchBar">
-                        <input type="text"/>
+                        <input type="text" value={searchText} onChange={(e) =>  findAndSortProducts(e) }/>
                         <img src="" alt="searchLogo"/>
                     </div>
                     <div className="foodCalculator-productList">
@@ -28,6 +39,7 @@ const FoodCalculator = () => {
                         <div>
 
                             <select name="" id=""  onChange={(e) => {
+                                // setSelectedSort(e.target.value)
                                 sortProducts(e.target.value);
                             }}
                             >
@@ -38,7 +50,7 @@ const FoodCalculator = () => {
                             </select>
                         </div>
 
-                        {sortedProducts.map((item) => (
+                        {searchedAndSortedProducts.map((item) => (
                             <div className="flex-center" key={item.name}>
                                 <div>{item.name}</div>
 
