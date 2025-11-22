@@ -4,24 +4,21 @@ import {productList} from '../constants/index.js';
 const FoodCalculator = () => {
 
     const [baseProductList, setBaseProductList] = React.useState(productList);
-    const [selectedSort, setSelectedSort] = React.useState("name");
-    const [sortedProducts, setSortedProducts] = React.useState(baseProductList);
+    const [selectedSort, setSelectedSort] = React.useState("");
     const [searchText, setSearchText] = React.useState('');
-    const [searchedAndSortedProducts, setSearchedAndSortedProducts] = React.useState(baseProductList)
 
-    const sortProducts =  (filter) => {
-        setSelectedSort(filter)
-        setSearchedAndSortedProducts([...searchedAndSortedProducts].sort((a,b) => typeof a[filter] === "string" ? a[filter].localeCompare(b[filter]) : a[filter]-(b[filter])))
-    }
+    const sortedPosts =  useMemo(() => {
+        console.log('otrabotala sortedPosts');
+        if (selectedSort) {
+            return [...baseProductList].sort((a,b) => typeof a[selectedSort] === "string" ? a[selectedSort].localeCompare(b[selectedSort]) : a[selectedSort]-(b[selectedSort]))
+        }
+        return baseProductList;
+    },[selectedSort, baseProductList])
 
-    const findAndSortProducts = (e) => {
-
-        setSearchText(e.target.value)
-        setSearchedAndSortedProducts(baseProductList.filter((item) => item.name.toLowerCase().includes(searchText.toLowerCase())))
-        // sortProducts(selectedSort)
-        console.log(e.target.value)
-
-    }
+    const searchedAndSortedPosts = useMemo(() => {
+        console.log('otrabotala searchedAndSortedPosts');
+        return sortedPosts.filter((item) => item.name.toLowerCase().includes(searchText.toLowerCase()))
+    }, [searchText, sortedPosts])
 
     return (
         <div className="foodCalculator">
@@ -31,7 +28,7 @@ const FoodCalculator = () => {
             <div className="foodCalculator-search">
                 <div>
                     <div className="foodCalculator-searchBar">
-                        <input type="text" value={searchText} onChange={(e) =>  findAndSortProducts(e) }/>
+                        <input type="text" value={searchText} onChange={(e) =>  setSearchText(e.target.value) }/>
                         <img src="" alt="searchLogo"/>
                     </div>
                     <div className="foodCalculator-productList">
@@ -39,8 +36,7 @@ const FoodCalculator = () => {
                         <div>
 
                             <select name="" id=""  onChange={(e) => {
-                                // setSelectedSort(e.target.value)
-                                sortProducts(e.target.value);
+                                setSelectedSort(e.target.value)
                             }}
                             >
                                 <option value="blabla" defaultChecked={true}>Сортировать</option>
@@ -50,7 +46,7 @@ const FoodCalculator = () => {
                             </select>
                         </div>
 
-                        {searchedAndSortedProducts.map((item) => (
+                        {searchedAndSortedPosts.map((item) => (
                             <div className="flex-center" key={item.name}>
                                 <div>{item.name}</div>
 
