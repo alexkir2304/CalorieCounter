@@ -6,9 +6,11 @@ const FoodCalculator = () => {
     const [baseProductList, setBaseProductList] = React.useState(productList);
     const [selectedSort, setSelectedSort] = React.useState("");
     const [searchText, setSearchText] = React.useState('');
+    const [eatenProducts, setEatenProducts] = React.useState([]);
+
 
     const sortedPosts =  useMemo(() => {
-        console.log('otrabotala sortedPosts');
+        // console.log('otrabotala sortedPosts');
         if (selectedSort) {
             return [...baseProductList].sort((a,b) => typeof a[selectedSort] === "string" ? a[selectedSort].localeCompare(b[selectedSort]) : a[selectedSort]-(b[selectedSort]))
         }
@@ -16,9 +18,21 @@ const FoodCalculator = () => {
     },[selectedSort, baseProductList])
 
     const searchedAndSortedPosts = useMemo(() => {
-        console.log('otrabotala searchedAndSortedPosts');
+        // console.log('otrabotala searchedAndSortedPosts');
         return sortedPosts.filter((item) => item.name.toLowerCase().includes(searchText.toLowerCase()))
     }, [searchText, sortedPosts])
+
+    function calrulateEatenCalories() {
+        return eatenProducts.reduce((acc, item) => (acc + item.calories),0)
+    }
+
+    const eatenCalories = calrulateEatenCalories()
+
+    // const eatenCalories = useMemo(() => {
+    //
+    // },[eatenProducts])
+
+
 
     return (
         <div className="foodCalculator">
@@ -46,24 +60,77 @@ const FoodCalculator = () => {
                             </select>
                         </div>
 
-                        {searchedAndSortedPosts.map((item) => (
-                            <div className="flex-center" key={item.name}>
-                                <div>{item.name}</div>
+                        {searchedAndSortedPosts.map((item) => {
 
-                                        <div>{item.caloriePer100grams ?
-                                            <input type="number" defaultValue={100} step={100} min={0} max={5000} /> : ""}
-                                        </div>
-                                        <div>{item.caloriePerPiece ?
-                                            <input type="number" defaultValue={1} step={1} min={0} max={50}/> : ""}</div>
-                                        <div>Итого{} грамм</div>
+                            return (
+                                <div className="flex justify-between w-full" key={item.name}>
+                                    <div className="w-2/4">{item.name}</div>
 
-                                <div></div>
+                                    <div> {
+                                        item.caloriePer100grams ?
+                                            <div>
+                                                <input type="number" defaultValue={0} step={100} min={0} max={5000} onChange={(e) => {
+                                                    e.target.parentNode.parentNode.nextSibling.innerHTML = `  ${e.target.value * item.caloriePer100grams/100} ккал`;
+
+                                                }}/>
+                                                грамм
+                                            </div> :
+                                            <div>
+                                                <input type="number" defaultValue={1} step={1} min={0} max={50}/>
+                                                шт.
+                                            </div>
+                                    }
+                                    </div>
+
+                                    <div></div>
+
+                                    <div>
+                                        <button onClick={(e) => {
+
+                                            const sum = e.target.parentNode.previousSibling.previousSibling.childNodes[1].childNodes[0].value
+                                            setEatenProducts([...eatenProducts, {
+                                                name:item.name,
+                                                weight: sum,
+                                                calories: sum * item.caloriePer100grams/100,
+                                                date: new Date().toLocaleDateString('en-US'),
+                                                user: "coming soon" }]);
+                                        }}>
+                                            Добавить
+                                        </button>
+                                    </div>
+                                </div>
+                            )
+                        })}
+
+                    </div>
+                </div>
+                <div className="foodCalculator-result flex-center-col test-border">
+                    <div className="foodCalculator-result__products flex-center-col w-full">
+                        {eatenProducts.map((item,index) => (
+                            <div className="flex justify-between w-full" key={index}>
+                                <div>{index + 1}</div>
+                                <div>{item.name} </div>
+                                <div>{item.weight} </div>
+                                <div>{item.calories} </div>
+                                <div>{item.date} </div>
+                                <div>Index is {index} </div>
+                                <button onClick={(e) => {
+                                    const newArr = [...eatenProducts];
+                                    newArr.splice(index,1)
+                                    // eatenProducts.splice(e.target.parentNode.firstChild.innerHTML, 1)
+                                    console.log(newArr)
+                                    setEatenProducts(newArr)
+                                    // // e.target.parentNode.remove();
+                                }
+
+                                }>Удалить
+                                </button>
                             </div>
                         ))}
                     </div>
-                </div>
-                <div className="foodCalculator-result">
-                    Итого калорий:
+                    <div className="foodCalculator-result__calories flex-center-col test-border w-full">
+                        Итого {eatenCalories} калорий.
+                    </div>
                 </div>
             </div>
         </div>
