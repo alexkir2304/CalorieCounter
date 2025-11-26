@@ -1,7 +1,7 @@
 import React, {useEffect, useMemo} from 'react';
 import {productList} from '../constants/index.js';
 
-const FoodCalculator = () => {
+const FoodCalculator = ({liftCalories}) => {
 
     const [baseProductList, setBaseProductList] = React.useState(productList);
     const [selectedSort, setSelectedSort] = React.useState("");
@@ -22,16 +22,14 @@ const FoodCalculator = () => {
         return sortedPosts.filter((item) => item.name.toLowerCase().includes(searchText.toLowerCase()))
     }, [searchText, sortedPosts])
 
-    function calrulateEatenCalories() {
+    function calculateEatenCalories() {
+        console.log('calculateEatenCalories worked at FoodCalculator')
         return eatenProducts.reduce((acc, item) => (acc + item.calories),0)
     }
 
-    const eatenCalories = calrulateEatenCalories()
+    const eatenCalories = calculateEatenCalories()
 
-    // const eatenCalories = useMemo(() => {
-    //
-    // },[eatenProducts])
-
+    liftCalories(eatenCalories)
 
 
     return (
@@ -94,6 +92,8 @@ const FoodCalculator = () => {
                                                 calories: sum * item.caloriePer100grams/100,
                                                 date: new Date().toLocaleDateString('en-US'),
                                                 user: "coming soon" }]);
+
+
                                         }}>
                                             Добавить
                                         </button>

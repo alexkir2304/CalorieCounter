@@ -1,10 +1,15 @@
 import React from 'react';
 
+import DemoChart from "./DemoChart.jsx";
+
 const Graphics = () => {
+
+
     return (
-        <div>
-            Graphics
-        </div>
+        <>
+            <DemoChart/>
+
+        </>
     );
 };
 

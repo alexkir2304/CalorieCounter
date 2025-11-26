@@ -1,9 +1,12 @@
 import React from 'react';
 
-const HumanCalculator = () => {
+const HumanCalculator = ({liftLimit}) => {
 
     const [parameters, setParameters] = React.useState({gender:'', age:'', weight:'', height:'', lifestyle: ''});
     const [parametersResult, setParametersResult] = React.useState(null)
+    const [dailyCalorieLimit, setDailyCalorieLimit] = React.useState(0)
+
+
 
     return (
         <div className="humanCalculator">
@@ -99,16 +102,19 @@ const HumanCalculator = () => {
                 <div>
                     <div>Для сброса веса</div>
                     <div>{(parametersResult * 0.85).toFixed(0)} ккал</div>
+                    <button onClick={() => {liftLimit(parametersResult* 0.85)}}>Установить как ежедневный лимит</button>
                 </div>
                 <div>
                     <div>Для поддержки веса</div>
                     <div>{parametersResult} ккал</div>
+                    <button onClick={() => {liftLimit(parametersResult)} }>Установить как ежедневный лимит</button>
                 </div>
                 <div>
                     <div>Для набора мышечной массы</div>
                     <div>{(parametersResult * 1.15).toFixed(0)} ккал</div>
+                    <button onClick={() => {liftLimit(parametersResult * 1.15)}}>Установить как ежедневный лимит</button>
                 </div>
-                <button onClick={()=> {
+                <button onClick={() => {
                     const entries = Object.values(parameters);
                     const filteredEntries = entries.filter((entry) => entry==="");
 
@@ -117,6 +123,10 @@ const HumanCalculator = () => {
                         :  setParametersResult((10 * parameters.weight + 6.25 * parameters.height - 5 * parameters.age - 161) * parameters.lifestyle)) : alert('Пожалуйста, заполните все поля');
                 }
                 }>Рассчитать</button>
+            </div>
+
+            <div className="humanCalculator-chartResult">
+
             </div>
 
 
