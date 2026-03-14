@@ -1,9 +1,11 @@
 import React, {useContext} from 'react';
-import {IsLoggedInWrapper} from "../App.jsx";
+import { SessionDataContext} from "../App.jsx";
 import {logInWithGoogle, logOut} from "../AppWrite/auth.js";
+import {createNewUserRow, recordCalorieLimit, updateCalorieHistory} from "../AppWrite/database.js";
 const Nav = ({setIsLoggedIn, setSession, setAccountData}) => {
 
-    const isLoggedIn = useContext(IsLoggedInWrapper)
+    // const isLoggedIn = useContext(IsLoggedInContext)
+    const session = useContext(SessionDataContext)
 
     const handleLogOut = () => logOut(setIsLoggedIn, setSession, setAccountData);
     const handleLogin = () => logInWithGoogle(setIsLoggedIn)
@@ -23,7 +25,13 @@ const Nav = ({setIsLoggedIn, setSession, setAccountData}) => {
             <button onClick={() => {
                 setIsLoggedIn(false)
                 setSession(null);
-            }}>test</button>
+            }}>test
+            </button>
+            <button onClick={() => {
+                updateCalorieHistory(session)
+            }}>updateCalorieHistory
+            </button>
+
         </nav>
     );
 };

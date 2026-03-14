@@ -2,14 +2,19 @@ import Nav from "./sections/Nav.jsx";
 import Main from "./sections/Main.jsx";
 import {createContext, useContext, useEffect, useState} from "react";
 import {account} from "./AppWrite/client.js";
+import {createNewUserRow} from "./AppWrite/database.js";
 
-export const IsLoggedInWrapper = createContext({});
+export const UserDataInContext = createContext({});
+export const SessionDataContext = createContext({});
 
 function App() {
 
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [session, setSession] = useState(null);
     const [accountData, setAccountData] = useState(null);
+    const [userData, setUserData] = useState(null);
+
+    // console.log(userData);
 
     const handleLogIn = async () => {
 
@@ -30,11 +35,19 @@ function App() {
         handleLogIn();
     }, []);
 
+    useEffect(() => {
+        session && createNewUserRow(session, setUserData);
+    },[session]);
+
+
+
     return (
-        <IsLoggedInWrapper value={isLoggedIn}>
-            <Nav setIsLoggedIn={setIsLoggedIn} setSession={setSession} setAccountData={setAccountData}/>
-            <Main/>
-        </IsLoggedInWrapper>
+        <SessionDataContext value={session}>
+            <UserDataInContext value={userData}>
+                <Nav setIsLoggedIn={setIsLoggedIn} setSession={setSession} setAccountData={setAccountData}/>
+                <Main session={session} setUserData={setUserData}/>
+            </UserDataInContext>
+        </SessionDataContext>
     );
 }
 

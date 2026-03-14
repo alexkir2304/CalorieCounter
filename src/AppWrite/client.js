@@ -1,4 +1,4 @@
-import {Client, ID, Databases, OAuthProvider, Query, Account, Storage} from "appwrite"
+import {Client, ID, Databases, OAuthProvider, Query, Account, Storage, TablesDB} from "appwrite"
 
 const client = new Client()
     .setEndpoint("https://fra.cloud.appwrite.io/v1")
@@ -8,5 +8,6 @@ const client = new Client()
 const account = new Account(client);
 const database = new Databases(client);
 const storage = new Storage(client);
+const tablesDB = new TablesDB(client);
 
-export {account, database, client, storage};
+export {account, database, client, storage, tablesDB};

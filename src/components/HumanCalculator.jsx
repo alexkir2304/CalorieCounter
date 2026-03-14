@@ -1,12 +1,11 @@
 import React from 'react';
+import {recordCalorieLimit} from "../AppWrite/database.js";
 
-const HumanCalculator = ({liftLimit}) => {
+const HumanCalculator = ({liftLimit, dailyLimit, session, setUserData, setDailyLimit}) => {
 
     const [parameters, setParameters] = React.useState({gender:'', age:'', weight:'', height:'', lifestyle: ''});
     const [parametersResult, setParametersResult] = React.useState(null)
     const [dailyCalorieLimit, setDailyCalorieLimit] = React.useState(0)
-
-
 
     return (
         <div className="humanCalculator">
@@ -102,17 +101,26 @@ const HumanCalculator = ({liftLimit}) => {
                 <div>
                     <div>Для сброса веса</div>
                     <div>{(parametersResult * 0.85).toFixed(0)} ккал</div>
-                    <button onClick={() => {liftLimit(parametersResult* 0.85)}}>Установить как ежедневный лимит</button>
+                    <button onClick={() => {
+                        // liftLimit(parametersResult* 0.85)
+                        recordCalorieLimit(session, parametersResult, setUserData, 0.85, setDailyLimit);
+                    }}>Установить как ежедневный лимит</button>
                 </div>
                 <div>
                     <div>Для поддержки веса</div>
                     <div>{parametersResult} ккал</div>
-                    <button onClick={() => {liftLimit(parametersResult)} }>Установить как ежедневный лимит</button>
+                    <button onClick={() => {
+                        // liftLimit(parametersResult)
+                        recordCalorieLimit(session, parametersResult, setUserData, 1, setDailyLimit);
+                    } }>Установить как ежедневный лимит</button>
                 </div>
                 <div>
                     <div>Для набора мышечной массы</div>
                     <div>{(parametersResult * 1.15).toFixed(0)} ккал</div>
-                    <button onClick={() => {liftLimit(parametersResult * 1.15)}}>Установить как ежедневный лимит</button>
+                    <button onClick={() => {
+                        // liftLimit(parametersResult * 1.15)
+                        recordCalorieLimit(session, parametersResult, setUserData, 1.15, setDailyLimit);
+                    }}>Установить как ежедневный лимит</button>
                 </div>
                 <button onClick={() => {
                     const entries = Object.values(parameters);
@@ -128,7 +136,6 @@ const HumanCalculator = ({liftLimit}) => {
             <div className="humanCalculator-chartResult">
 
             </div>
-
 
         </div>
     );

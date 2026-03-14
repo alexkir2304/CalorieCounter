@@ -1,12 +1,15 @@
-import React, {useEffect, useMemo} from 'react';
+import React, {useContext, useEffect, useMemo} from 'react';
 import {productList} from '../constants/index.js';
+import {updateCalorieHistory} from "../AppWrite/database.js";
+import {SessionDataContext, UserDataInContext} from "../App.jsx";
 
-const FoodCalculator = ({liftCalories}) => {
+const FoodCalculator = ({liftCalories, session}) => {
 
     const [baseProductList, setBaseProductList] = React.useState(productList);
     const [selectedSort, setSelectedSort] = React.useState("");
     const [searchText, setSearchText] = React.useState('');
     const [eatenProducts, setEatenProducts] = React.useState([]);
+    const userData = useContext(UserDataInContext);
 
 
     const sortedPosts =  useMemo(() => {
@@ -131,6 +134,9 @@ const FoodCalculator = ({liftCalories}) => {
                     <div className="foodCalculator-result__calories flex-center-col test-border w-full">
                         Итого {eatenCalories} калорий.
                     </div>
+                    <button onClick={ () =>{updateCalorieHistory(session, eatenCalories, userData)}}>
+                        Сохранить
+                    </button>
                 </div>
             </div>
         </div>
