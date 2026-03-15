@@ -4,7 +4,7 @@ import FoodCalculator from "../components/FoodCalculator.jsx";
 import HumanCalculator from "../components/HumanCalculator.jsx";
 import {recordCalorieLimit} from "../AppWrite/database.js";
 
-const Main = ({session, setUserData}) => {
+const Main = ({session, setUserData, userData}) => {
 
     const [dailyLimit, setDailyLimit] = useState(0);
     const [eatenCaloriesGlobal, setEatenCaloriesGlobal] = useState(0);
@@ -27,8 +27,8 @@ const Main = ({session, setUserData}) => {
             {eatenCaloriesGlobal}
 
             <Graphics/>
-            <FoodCalculator liftCalories={handleCalories} session={session} />
-            <HumanCalculator session={session} setUserData={setUserData} dailyLimit={dailyLimit} setDailyLimit={setDailyLimit}/>
+            <FoodCalculator liftCalories={handleCalories} session={session} setUserData={setUserData}/>
+            <HumanCalculator session={session} setUserData={setUserData} dailyLimit={dailyLimit} setDailyLimit={setDailyLimit} userData={userData}/>
         </main>
     );
 };

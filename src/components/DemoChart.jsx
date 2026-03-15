@@ -1,7 +1,7 @@
 // @ts-ignore
 import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import {Area, AreaChart, CartesianGrid, Legend, Line, LineChart, Tooltip, XAxis, YAxis} from "recharts";
-import {demoArr} from "../constants/demoChartArr.js";
+import {demoArr, demoArr2} from "../constants/demoChartArr.js";
 
 
 
@@ -9,7 +9,7 @@ import {demoArr} from "../constants/demoChartArr.js";
 const DemoChart = () => {
 
     return (
-        <LineChart width={400} height={400} data={demoArr}>
+        <LineChart width={800} height={400} data={demoArr2}>
             <Tooltip/>
             <Legend  />
             <CartesianGrid strokeDasharray="3 5"/>

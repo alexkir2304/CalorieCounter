@@ -41,4 +41,44 @@ demoArr.forEach((item,index) => {
 })
 console.log(demoArr);
 
-export {demoArr};
+const demoArr2 = [
+    {
+        currentLimit: 2000,
+        eatenCalories: 2100,
+        date: '3/9/2026',
+    },
+    {
+        currentLimit: 2000,
+        eatenCalories: 1950,
+        date: '3/10/2026',    },
+    {
+        currentLimit: 2000,
+        eatenCalories: 1700,
+        date: '3/11/2026',    },
+    {
+        currentLimit: 2000,
+        eatenCalories: 1800,
+        date: '3/12/2026',    },
+    {
+        currentLimit: 2000,
+        eatenCalories: 1650,
+        date: '3/13/2026',    },
+    {
+        currentLimit: 2000,
+        eatenCalories: 1650,
+        date: '3/14/2026',    },
+    {
+        currentLimit: 2000,
+        eatenCalories: 1650,
+        date: '3/15/2026',
+    },
+]
+
+const date = new Date().toLocaleDateString();
+// demoArr2.forEach((item,index) => {
+//     item.date = date;
+// })
+console.log(demoArr2);
+
+
+export {demoArr, demoArr2};

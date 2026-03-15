@@ -3,7 +3,7 @@ import {productList} from '../constants/index.js';
 import {updateCalorieHistory} from "../AppWrite/database.js";
 import {SessionDataContext, UserDataInContext} from "../App.jsx";
 
-const FoodCalculator = ({liftCalories, session}) => {
+const FoodCalculator = ({liftCalories, session, setUserData}) => {
 
     const [baseProductList, setBaseProductList] = React.useState(productList);
     const [selectedSort, setSelectedSort] = React.useState("");
@@ -134,7 +134,7 @@ const FoodCalculator = ({liftCalories, session}) => {
                     <div className="foodCalculator-result__calories flex-center-col test-border w-full">
                         Итого {eatenCalories} калорий.
                     </div>
-                    <button onClick={ () =>{updateCalorieHistory(session, eatenCalories, userData)}}>
+                    <button onClick={ () =>{updateCalorieHistory(session, eatenCalories, userData, setUserData)}}>
                         Сохранить
                     </button>
                 </div>

@@ -43,7 +43,7 @@ function App() {
         <SessionDataContext value={session}>
             <UserDataInContext value={userData}>
                 <Nav setIsLoggedIn={setIsLoggedIn} setSession={setSession} setAccountData={setAccountData}/>
-                <Main session={session} setUserData={setUserData}/>
+                <Main session={session} userData={userData} setUserData={setUserData}/>
             </UserDataInContext>
         </SessionDataContext>
     );
