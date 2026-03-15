@@ -14,8 +14,6 @@ function App() {
     const [accountData, setAccountData] = useState(null);
     const [userData, setUserData] = useState(null);
 
-    // console.log(userData);
-
     const handleLogIn = async () => {
 
         try {
@@ -37,7 +35,7 @@ function App() {
 
     useEffect(() => {
         session && createNewUserRow(session, setUserData);
-    },[session]);
+    },[session, isLoggedIn]);
 
 
 

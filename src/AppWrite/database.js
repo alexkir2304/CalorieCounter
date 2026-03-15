@@ -8,16 +8,17 @@ export const createNewUserRow = async (session, setUserData) => {
         tableId: "2356245624572456",
         queries: [
             Query.equal('$id', session.userId),
-
         ]
-    }).then(setUserData(isUserRowAlreadyExists.rows[0]))
-    console.log(isUserRowAlreadyExists.rows[0])
+    })
 
-    // setUserData(isUserRowAlreadyExists.rows[0])
+    setUserData(isUserRowAlreadyExists.rows[0])
 
     if (isUserRowAlreadyExists.total === 0) {                            //if the user exists, do nothing, otherwise create a new row for this user
+
+        const test = []
+
         try {
-            await tablesDB.createRow({
+            const arr = await tablesDB.createRow({
                 databaseId: "69b352200012700ad121",
                 tableId: "2356245624572456",
                 // rowId: "69b35f5e000819c7dad4",
@@ -26,10 +27,14 @@ export const createNewUserRow = async (session, setUserData) => {
                     dailyCalorieLimit: 0,
                 }
             });
+            test.push(arr);
+            console.log(test);
         }   catch (error) {
             console.log(error);
         } finally {
-            console.log("a new user row has already been created");
+            setUserData(test[0])
+            // console.log(test[0].rows[0])
+            console.log("a new user row has been created");
         }
     }
 }
@@ -57,8 +62,6 @@ export const updateCalorieHistory2 = async (session, eatenCalories) => {
 }
 
 export const updateCalorieHistory = async (session, eatenCalories, userData) => {
-
-
 
     const userHistory = JSON.parse(userData.userCalorieHistory)
     console.log(userHistory);
