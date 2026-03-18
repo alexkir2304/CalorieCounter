@@ -26,7 +26,7 @@ const Main = ({session, setUserData, userData}) => {
             {dailyLimit}
             {eatenCaloriesGlobal}
 
-            <Graphics/>
+            <Graphics userData={userData} session={session}/>
             <FoodCalculator liftCalories={handleCalories} session={session} setUserData={setUserData}/>
             <HumanCalculator session={session} setUserData={setUserData} dailyLimit={dailyLimit} setDailyLimit={setDailyLimit} userData={userData}/>
         </main>

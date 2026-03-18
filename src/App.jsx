@@ -4,7 +4,7 @@ import {createContext, useContext, useEffect, useState} from "react";
 import {account} from "./AppWrite/client.js";
 import {createNewUserRow} from "./AppWrite/database.js";
 
-export const UserDataInContext = createContext({});
+export const UserDataContext = createContext({});
 export const SessionDataContext = createContext({});
 
 function App() {
@@ -31,20 +31,19 @@ function App() {
 
     useEffect(() => {
         handleLogIn();
+
     }, []);
 
     useEffect(() => {
         session && createNewUserRow(session, setUserData);
     },[session, isLoggedIn]);
 
-
-
     return (
         <SessionDataContext value={session}>
-            <UserDataInContext value={userData}>
+            <UserDataContext value={userData}>
                 <Nav setIsLoggedIn={setIsLoggedIn} setSession={setSession} setAccountData={setAccountData}/>
                 <Main session={session} userData={userData} setUserData={setUserData}/>
-            </UserDataInContext>
+            </UserDataContext>
         </SessionDataContext>
     );
 }

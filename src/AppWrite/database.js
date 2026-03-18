@@ -68,7 +68,6 @@ export const recordCalorieLimit = async (session, parametersResult, setUserData,
         newInfo.push(newHistoryElement)
     }
 
-
     if (userHistory.findIndex(item => item.date == date) === -1) {
         userHistory.push(newInfo[0])
     } else {
@@ -96,6 +95,8 @@ export const updateCalorieHistory2 = async (session, eatenCalories) => {
 
 export const updateCalorieHistory = async (session, eatenCalories, userData, setUserData) => {
 
+    console.log(userData.dailyCalorieLimit)
+
     const userHistory = JSON.parse(userData.dailyCalorieLimit)
     console.log(userHistory);
 
@@ -105,7 +106,7 @@ export const updateCalorieHistory = async (session, eatenCalories, userData, set
 
     const newInfo = []
 
-    if (userHistory[userHistory.length-1].date === date) {              //if tomorrow's info has been already filled by any function we leave this info and add a new record calorie limit
+    if (userHistory[userHistory.length-1].date === date) {              //if today's info has been already filled by any function we leave this info and add a new record calorie limit
         const newHistoryElement = {
             date: date,
             eatenCalories: eatenCalories,
@@ -142,4 +143,8 @@ export const updateCalorieHistory = async (session, eatenCalories, userData, set
     })
 
     setUserData(updatedData)
+}
+
+export const drawGraphics  = (userData) => {
+    //todo
 }

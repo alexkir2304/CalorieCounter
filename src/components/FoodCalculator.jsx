@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useMemo} from 'react';
 import {productList} from '../constants/index.js';
 import {updateCalorieHistory} from "../AppWrite/database.js";
-import {SessionDataContext, UserDataInContext} from "../App.jsx";
+import {SessionDataContext, UserDataContext} from "../App.jsx";
 
 const FoodCalculator = ({liftCalories, session, setUserData}) => {
 
@@ -9,7 +9,7 @@ const FoodCalculator = ({liftCalories, session, setUserData}) => {
     const [selectedSort, setSelectedSort] = React.useState("");
     const [searchText, setSearchText] = React.useState('');
     const [eatenProducts, setEatenProducts] = React.useState([]);
-    const userData = useContext(UserDataInContext);
+    const userData = useContext(UserDataContext);
 
 
     const sortedPosts =  useMemo(() => {
@@ -44,7 +44,7 @@ const FoodCalculator = ({liftCalories, session, setUserData}) => {
                 <div>
                     <div className="foodCalculator-searchBar">
                         <input type="text" value={searchText} onChange={(e) =>  setSearchText(e.target.value) }/>
-                        <img src="" alt="searchLogo"/>
+                        {/*<img src="" alt="searchLogo"/>*/}
                     </div>
                     <div className="foodCalculator-productList">
 
