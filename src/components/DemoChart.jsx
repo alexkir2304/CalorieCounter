@@ -10,7 +10,7 @@ import {Query} from "appwrite";
 const DemoChart = ({session, userData}) => {
 
 
-    const [userDataChartInfo, setUserDataChartInfo] = useState(null);
+    const [userDataChartInfo, setUserDataChartInfo] = useState();
 
     const showChartData = async () => {
 
@@ -31,7 +31,7 @@ const DemoChart = ({session, userData}) => {
 
     useEffect(() => {
         showChartData()
-    }, [userData])
+    }, [session, userData])
 
     return (
         userDataChartInfo && (
